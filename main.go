@@ -3,9 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"time"
-
-	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
@@ -26,8 +23,9 @@ func main() {
 
 	// get secrets from default
 
-	secret, err := clientset.CoreV1().Secret("test-secret")
+	pods, err := clientset.CoreV1().Pods("").List(context.TODO(), metav1.ListOptions{})	
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("Secret is %s", secret)
+	fmt.Printf("Secret is %s", pods)
+}
